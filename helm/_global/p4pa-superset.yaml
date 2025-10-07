@@ -9,7 +9,7 @@ superset:
     create: false
 
   # -- Specify service account name to be used
-  serviceAccountName: superset-workload-identity
+  serviceAccountName: analytics-workload-identity
   serviceAccount:
     create: false
 
