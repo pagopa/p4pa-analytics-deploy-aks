@@ -1,3 +1,3 @@
 #!/bin/bash
 
-../../../scripts/deploy.sh values.yaml analytics p4pa-d-itn-dev-aks p4pa-superset
+../../../scripts/deploy.sh values.yaml analytics p4pa-u-itn-uat-aks p4pa-superset
