@@ -1,6 +1,6 @@
 superset:
   image:
-    tag: snapshot
+    tag: develop-latest
 
   ingress:
     hosts:
