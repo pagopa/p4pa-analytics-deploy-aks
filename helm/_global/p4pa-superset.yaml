@@ -1,6 +1,15 @@
 superset:
+  image:
+    repository: ghcr.io/pagopa/p4pa-superset
+    pullPolicy: Always
+
+  initImage:
+    repository: apache/superset
+    tag: dockerize
+    pullPolicy: IfNotPresent
+
   # -- User ID directive. This user must have enough permissions to run the bootstrap script (for PROD env we should build a new image which would install the required packages)
-  runAsUser: 0 # 65534 cannot use because we need to install some packages first
+  runAsUser: 65534
 
   # -- Specify rather or not helm should create the secret described in `secret-env.yaml` template
   secretEnv:
@@ -18,8 +27,6 @@ superset:
   # @default -- see `values.yaml`
   bootstrapScript: |
     #!/bin/bash
-    apt update && apt install -y gcc libpq-dev python3-dev pkg-config
-    uv pip install psycopg2-binary
     if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
 
   # -- Extra environment variables that will be passed into pods
@@ -131,17 +138,7 @@ superset:
 
   extraConfigMountPath: "/app/configs"
 
-  image:
-    repository: apachesuperset.docker.scarf.sh/apache/superset
-    tag: 6.0.0rc2 # ~ using RC version in order to be able to use a context path different from / (SUPERSET_APP_ROOT env var)
-    pullPolicy: IfNotPresent
-
   imagePullSecrets: []
-
-  initImage:
-    repository: apache/superset
-    tag: dockerize
-    pullPolicy: IfNotPresent
 
   ingress:
     enabled: true

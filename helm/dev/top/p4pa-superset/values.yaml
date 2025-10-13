@@ -1,4 +1,7 @@
 superset:
+  image:
+    tag: snapshot
+
   ingress:
     hosts:
       - "hub.internal.dev.p4pa.pagopa.it"
