@@ -32,7 +32,6 @@ superset:
   # -- Extra environment variables that will be passed into pods
   extraEnv:
     SUPERSET_APP_ROOT: "/analytics" # if you change this, apply the same on probe configurations
-    SUPERSET_CONFIG_PATH: "/app/superset_config.py"
     # Different gunicorn settings, refer to the gunicorn documentation
     # https://docs.gunicorn.org/en/stable/settings.html#
     # These variables are used as Flags at the gunicorn startup
@@ -104,7 +103,6 @@ superset:
         import logging
         
         ENABLE_PROXY_FIX = True
-        SUPERSET_CONFIG_PATH: /app/superset_config.py
         APPLICATION_ROOT = '/analytics' 
         AUTH_TYPE = AUTH_OAUTH
         AUTH_USER_REGISTRATION = True
