@@ -79,7 +79,7 @@ superset:
       class CustomAuthView(AuthDBView):
         @expose('/login/', methods=['GET', 'POST'])
         def login(self):
-          logging.info("Tentativo di login con token JWT ricevuto.")
+          print("Tentativo di login con token JWT ricevuto.")
           jwt_token = request.args.get('token')
           if jwt_token:
                   logging.debug(f"Token ricevuto (troncato): {jwt_token[:20]}...")
