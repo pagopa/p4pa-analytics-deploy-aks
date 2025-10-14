@@ -119,13 +119,14 @@ superset:
       enable_oauth: |
         import sys
         import os 
+        from flask_appbuilder.security.manager import AUTH_OAUTH 
+        APPLICATION_ROOT = '/analytics' 
+        AUTH_TYPE = AUTH_OAUTH
+        
         sys.path.append("/app/configs") 
         from custom_security_manager import CustomSsoSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
         
-        ENABLE_PROXY_FIX = True
-        APPLICATION_ROOT = '/analytics' 
-        AUTH_TYPE = AUTH_OAUTH
         AUTH_USER_REGISTRATION = True
         AUTH_USER_REGISTRATION_ROLE = "Public"
         OAUTH_USER_INFO_KEY = 'userinfo'
