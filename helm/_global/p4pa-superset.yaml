@@ -103,6 +103,8 @@ superset:
                               return redirect(self.appbuilder.get_url_for_index)
                           else:
                                flash('Utente {user_identifier} non trovato e registrazione non permessa.','warning')
+                  except Exception as e:
+                      flash('Errore generico nel login SSO: {e}','error')
           else:
             flash('Unable to auto login', 'warning')
             return super(CustomAuthDBView,self).login()
