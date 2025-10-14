@@ -109,7 +109,7 @@ superset:
             flash('Unable to auto login', 'warning')
             return super(CustomAuthDBView,self).login()
 
-      class MyCustomSecurityManager(SupersetSecurityManager):
+      class CustomSecurityManager(SupersetSecurityManager):
           authdbview = CustomAuthView
           def __init__(self, appbuilder):
               super(CustomSecurityManager, self).__init__(appbuilder)
@@ -151,8 +151,8 @@ superset:
         AUTH_TYPE = AUTH_DB
         
         sys.path.append('/app/configs') 
-        from custom_security_manager import MyCustomSecurityManager
-        CUSTOM_SECURITY_MANAGER = MyCustomSecurityManager
+        from custom_security_manager import CustomSecurityManager
+        CUSTOM_SECURITY_MANAGER = CustomSecurityManager
         AUTH_USER_REGISTRATION = True
         AUTH_USER_REGISTRATION_ROLE = 'Gamma'
     # extend_timeout: |
