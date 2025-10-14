@@ -136,13 +136,13 @@ superset:
               'icon': 'fa-key',
               'token_key': 'access_token',
               'remote_app': {
-                  'client_id': os.environ.get('piattaforma-unitaria'),
+                  'client_id': 'piattaforma-unitaria',
                   'client_secret': os.environ.get('piattaforma-unitaria-client-secret'),
-                  'api_base_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/',
-                  'access_token_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/oauth/token',
-                  'authorize_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/oauth/token',
-                  'userinfo_endpoint': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/oauth/userinfo',
-                  'jwks_uri':'http://p4pa-auth-microservice-chart:8080/payhub/pu/.well-known/jwks.json',
+                  'api_base_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/',
+                  'access_token_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/token',
+                  'authorize_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/authorize',
+                  'userinfo_endpoint': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo',
+                  'jwks_uri':'https://api.dev.p4pa.pagopa.it/pu/.well-known/jwks.json',
                   'access_token_headers':{    # Additional headers for calls to access_token_url
                       'Authorization': 'Basic Base64EncodedClientIdAndSecret'
                   },
