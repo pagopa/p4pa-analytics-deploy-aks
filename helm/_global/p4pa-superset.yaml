@@ -32,6 +32,7 @@ superset:
   # -- Extra environment variables that will be passed into pods
   extraEnv:
     SUPERSET_APP_ROOT: "/analytics" # if you change this, apply the same on probe configurations
+    SUPERSET_CONFIG_PATH: "/app/superset_config.py"
     # Different gunicorn settings, refer to the gunicorn documentation
     # https://docs.gunicorn.org/en/stable/settings.html#
     # These variables are used as Flags at the gunicorn startup
@@ -97,9 +98,10 @@ superset:
   # WARNING: the order is not guaranteed
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
-      oauth_config: |
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
+      enable_oauth: |
         from flask_appbuilder.security.manager import (AUTH_OAUTH, AUTH_DB)
-        import os
+        import os, logging
 
         APPLICATION_ROOT = '/analytics/' 
         AUTH_TYPE = AUTH_OAUTH
@@ -107,15 +109,14 @@ superset:
         AUTH_USER_REGISTRATION_ROLE = "Public"
         OAUTH_USER_INFO_KEY = 'userinfo'
         OAUTH_USERNAME_FIELD = 'externalUserId'
-        OAUTH_PROVIDERS = [
-          {
-              'name': 'p4pa_auth',
+        OAUTH_PROVIDERS = [{
+              'name': 'p4paauth',
               'icon': 'fa-key',
               'token_key': 'access_token',
 
               'remote_app': {
-                  'client_id': piattaforma-unitaria',
-                  'client_secret': piattaforma-unitaria-client-secret',
+                  'client_id': os.environ.get('piattaforma-unitaria'),
+                  'client_secret': os.environ.get('piattaforma-unitaria-client-secret'),
                   'api_base_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/',
                   
                   # Endpoint standard OIDC
@@ -129,8 +130,24 @@ superset:
                       'token_endpoint_auth_method': 'client_secret_post'
                   },
               }
-          }
-        ]
+          }]
+        
+          class CustomSsoSecurityManager:
+                  def oauth_user_info(self, provider, response=None):
+                      logging.debug("Oauth2 provider: {0}.".format(provider))
+                      if provider == 'p4paauth':
+                          me = self.appbuilder.sm.oauth_remotes[provider].get('userDetails').data
+                          logging.debug("user_data: {0}".format(me))
+                          return {
+                              'name': me['name'],
+                              'email': me['email'],
+                              'id': me['user_name'],
+                              'username': me['user_name'],
+                              'first_name': '',
+                              'last_name': ''
+                          }
+
+          CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
