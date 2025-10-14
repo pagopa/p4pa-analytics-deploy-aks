@@ -116,7 +116,7 @@ superset:
                       log.error(f"Errore nella chiamata a /userinfo: {e}")
                   except Exception as e:
                       log.error(f"Errore generico nel login SSO: {e}")
-              return super(CustomAuthView, self).login()
+          return super(CustomAuthView, self).login()
 
       class MyCustomSecurityManager(SupersetSecurityManager):
           authdbview = CustomAuthView
