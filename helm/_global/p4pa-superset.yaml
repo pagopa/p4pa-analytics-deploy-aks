@@ -111,7 +111,7 @@ superset:
                       flash('Errore generico nel login SSO: {e}','error')
           else:
             flash('Unable to auto login', 'warning')
-            return super(CustomAuthDBView,self).login()
+            return redirect(self.appbuilder.get_url_for_index)
 
       class CustomSecurityManager(SupersetSecurityManager):
           authdbview = CustomAuthView
