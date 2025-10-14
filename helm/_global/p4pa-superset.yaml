@@ -140,11 +140,14 @@ superset:
                   'client_secret': os.environ.get('piattaforma-unitaria-client-secret'),
                   'api_base_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/',
                   'access_token_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/oauth/token',
-                  'authorize_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/oauth/authorize',
+                  'authorize_url': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/oauth/token',
                   'userinfo_endpoint': 'http://p4pa-auth-microservice-chart:8080/payhub/pu/auth/oauth/userinfo',
+                  'jwks_uri':'http://p4pa-auth-microservice-chart:8080/payhub/pu/.well-known/jwks.json',
+                  'access_token_headers':{    # Additional headers for calls to access_token_url
+                      'Authorization': 'Basic Base64EncodedClientIdAndSecret'
+                  },
                   'client_kwargs': {
-                      'scope': 'openid',
-                      'token_endpoint_auth_method': 'client_secret_post'
+                      'scope': 'openid'
                   },
               }
           }]
