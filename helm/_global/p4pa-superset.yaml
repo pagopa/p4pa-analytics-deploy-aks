@@ -73,13 +73,14 @@ superset:
       from flask_appbuilder.security.views import expose
       from flask_appbuilder.security.manager import BaseSecurityManager
       from flask_login import login_user, logout_user
+      log = logging.getLogger()
       
       USERINFO_URL = 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo'
       
       class CustomAuthView(AuthDBView):
         @expose('/login/', methods=['GET', 'POST'])
         def login(self):
-          flash('Tentativo di login con token JWT ricevuto.','warning')
+          log.info('Tentativo di login con token JWT ricevuto.')
           jwt_token = request.args.get('token')
           flash(jwt_token, 'warning')
           if jwt_token == 'SOME_TOKEN_VALUE':
