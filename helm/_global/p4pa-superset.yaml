@@ -73,24 +73,23 @@ superset:
       from flask_appbuilder.security.views import AuthDBView, expose
       from flask_login import login_user
       from superset.security import SupersetSecurityManager
-      log = logging.getLogger(__name__)
       
-      USERINFO_URL = "https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo"
+      USERINFO_URL = 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo'
       
       class CustomAuthView(AuthDBView):
         @expose('/login/', methods=['GET', 'POST'])
         def login(self):
-          log.info("Tentativo di login con token JWT ricevuto.")
+          logging.info("Tentativo di login con token JWT ricevuto.")
           jwt_token = request.args.get('token')
           if jwt_token:
-                  log.debug(f"Token ricevuto (troncato): {jwt_token[:20]}...")
+                  logging.debug(f"Token ricevuto (troncato): {jwt_token[:20]}...")
                   try:
-                      log.info(f"Chiamata a USERINFO_URL: {USERINFO_URL}")
+                      logging.info(f"Chiamata a USERINFO_URL: {USERINFO_URL}")
                       headers = {'Authorization': f'Bearer {jwt_token}'}
                       response = requests.get(USERINFO_URL, headers=headers, timeout=5, verify=False)
                       response.raise_for_status()
                       user_data = response.json()
-                      log.debug(f"Dati utente ricevuti: {user_data}")
+                      logging.debug(f"Dati utente ricevuti: {user_data}")
                       username_key = 'mappedExternalUserId' 
                       user_identifier = user_data.get(username_key)
 
@@ -103,7 +102,7 @@ superset:
                               email = user_data.get('email', f'{user_identifier}@sso.local')
                               role = sm.find_role(sm.auth_user_registration_role)
 
-                              log.info(f"Registrazione automatico utente: {user_identifier}")
+                              logging.info(f"Registrazione automatico utente: {user_identifier}")
                               user = sm.add_user(user_identifier, first_name, last_name, email, role)
                           if user:
                               # 4. Crea la sessione di login in Superset
@@ -113,11 +112,11 @@ superset:
                           else:
                                log.error(f"Utente {user_identifier} non trovato e registrazione non permessa.")
                       else:
-                          log.error("Token valido ma dati utente insufficienti da /userinfo.")
+                          logging.error("Token valido ma dati utente insufficienti da /userinfo.")
                   except requests.exceptions.RequestException as e:
-                      log.error(f"Errore nella chiamata a /userinfo: {e}")
+                      logging.error(f"Errore nella chiamata a /userinfo: {e}")
                   except Exception as e:
-                      log.error(f"Errore generico nel login SSO: {e}")
+                      logging.error(f"Errore generico nel login SSO: {e}")
           return super(CustomAuthView, self).login()
 
       class MyCustomSecurityManager(SupersetSecurityManager):
@@ -155,21 +154,15 @@ superset:
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
       enable_oauth: |
-        import ssl
         import sys
-        import os
-        RECAPTCHA_PUBLIC_KEY = ""
-        CACHE_REDIS_SSL = True
-        CACHE_REDIS_SSL_CERT_REQS = ssl.CERT_NONE
-      
         from flask_appbuilder.security.manager import AUTH_DB 
         AUTH_TYPE = AUTH_DB
         
-        sys.path.append("/app/configs") 
+        sys.path.append('/app/configs') 
         from custom_security_manager import MyCustomSecurityManager
         CUSTOM_SECURITY_MANAGER = MyCustomSecurityManager
         AUTH_USER_REGISTRATION = True
-        AUTH_USER_REGISTRATION_ROLE = "Gamma"
+        AUTH_USER_REGISTRATION_ROLE = 'Gamma'
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
