@@ -72,19 +72,20 @@ superset:
       from flask_appbuilder.security.manager import AUTH_OAUTH 
       
       class CustomSsoSecurityManager(SupersetSecurityManager):
-              def oauth_user_info(self, provider, response=None):
-                  logging.debug("Oauth2 provider: {0}.".format(provider))
-      
-                  if provider == 'p4paauth':
-                      me = self.appbuilder.sm.oauth_remotes[provider].get('oauth/userinfo').data
-                      logging.debug("user_data: {0}".format(me))
-                      return {
-                          # Le chiavi qui sotto sono quelle usate internamente da Superset
-                          'id': me['externalUserId'],
-                          'username': me['externalUserId'],
-                          'first_name': me.get('name', 'User'),
-                          'last_name': me.get('surname', 'SSO'),
-                      }
+          oauth_state = False  
+          def oauth_user_info(self, provider, response=None):
+              logging.debug("Oauth2 provider: {0}.".format(provider))
+  
+              if provider == 'p4paauth':
+                  me = self.appbuilder.sm.oauth_remotes[provider].get('oauth/userinfo').data
+                  logging.debug("user_data: {0}".format(me))
+                  return {
+                      # Le chiavi qui sotto sono quelle usate internamente da Superset
+                      'id': me['externalUserId'],
+                      'username': me['externalUserId'],
+                      'first_name': me.get('name', 'User'),
+                      'last_name': me.get('surname', 'SSO'),
+                  }
     # import_datasources.yaml: |
     #     databases:
     #     - allow_file_upload: true
