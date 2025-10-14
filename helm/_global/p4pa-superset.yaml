@@ -80,15 +80,17 @@ superset:
       class CustomAuthView(AuthDBView):
         @expose('/login/', methods=['GET', 'POST'])
         def login(self):
+          log.info("Tentativo di login con token JWT ricevuto.")
           jwt_token = request.args.get('token')
           if jwt_token:
-                  log.info("Tentativo di login con token JWT ricevuto.")
+                  log.debug(f"Token ricevuto (troncato): {jwt_token[:20]}...")
                   try:
+                      log.info(f"Chiamata a USERINFO_URL: {USERINFO_URL}")
                       headers = {'Authorization': f'Bearer {jwt_token}'}
-                      response = requests.get(USERINFO_URL, headers=headers, timeout=5)
+                      response = requests.get(USERINFO_URL, headers=headers, timeout=5, verify=False)
                       response.raise_for_status()
                       user_data = response.json()
-
+                      log.debug(f"Dati utente ricevuti: {user_data}")
                       username_key = 'mappedExternalUserId' 
                       user_identifier = user_data.get(username_key)
 
