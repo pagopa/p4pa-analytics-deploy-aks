@@ -154,6 +154,11 @@ superset:
   # WARNING: the order is not guaranteed
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
+      custom_redis_config: |
+        RECAPTCHA_PUBLIC_KEY = "" 
+        CACHE_REDIS_SSL = True
+        CACHE_REDIS_SSL_CERT_REQS = ssl.CERT_NONE
+
       enable_oauth: |
         import ssl
         import sys
@@ -161,12 +166,12 @@ superset:
         RECAPTCHA_PUBLIC_KEY = ""
         CACHE_REDIS_SSL = True
         CACHE_REDIS_SSL_CERT_REQS = ssl.CERT_NONE
-        
-        sys.path.append("/app/configs") 
-        from custom_security_manager import MyCustomSecurityManager
+      
         from flask_appbuilder.security.manager import AUTH_DB 
         AUTH_TYPE = AUTH_DB
         
+        sys.path.append("/app/configs") 
+        from custom_security_manager import MyCustomSecurityManager
         CUSTOM_SECURITY_MANAGER = MyCustomSecurityManager
         AUTH_USER_REGISTRATION = True
         AUTH_USER_REGISTRATION_ROLE = "Gamma"
