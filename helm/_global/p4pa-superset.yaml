@@ -13,6 +13,7 @@ superset:
 
   # -- Specify rather or not helm should create the secret described in `secret-env.yaml` template
   secretEnv:
+    PIATTAFORMA_UNITARIA_CLIENT_SECRET: piattaforma-unitaria-client-secret
     # -- Change to false in order to support externally created secret (Binami "Sealed Secrets" for Kubernetes or External Secrets Operator)
     # note: when externally creating the secret, the chart still expects to pull values from a secret with the name of the release defaults to `release-name-superset-env` - full logic located in _helpers.tpl file: `define "superset.fullname"`
     create: false
@@ -137,15 +138,11 @@ superset:
               'token_key': 'access_token',
               'remote_app': {
                   'client_id': 'piattaforma-unitaria',
-                  'client_secret': os.environ.get('piattaforma-unitaria-client-secret'),
+                  'client_secret': os.environ.get('PIATTAFORMA_UNITARIA_CLIENT_SECRET'),
                   'api_base_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/',
                   'access_token_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/token',
-                  'authorize_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/authorize',
                   'userinfo_endpoint': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo',
                   'jwks_uri':'https://api.dev.p4pa.pagopa.it/pu/.well-known/jwks.json',
-                  'access_token_headers':{    # Additional headers for calls to access_token_url
-                      'Authorization': 'Basic Base64EncodedClientIdAndSecret'
-                  },
                   'client_kwargs': {
                       'scope': 'openid'
                   },
