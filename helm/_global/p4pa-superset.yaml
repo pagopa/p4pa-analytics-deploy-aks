@@ -111,7 +111,7 @@ superset:
                       flash('Errore generico nel login SSO: {e}','error')
           else:
             flash('Unable to auto login', 'warning')
-            return redirect(self.appbuilder.get_url_for_index)
+            return super(CustomAuthDBView,self).login()
 
       class CustomSecurityManager(SupersetSecurityManager):
           authdbview = CustomAuthView
@@ -152,8 +152,11 @@ superset:
       enable_oauth: |
         import sys
         sys.path.append('/app/configs')
+        from superset.security import SupersetSecurityManager
+        from flask_appbuilder.security.manager import AUTH_OAUTH, AUTH_DB
         from custom_security_manager import CustomSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
+        AUTH_TYPE = AUTH_DB
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
