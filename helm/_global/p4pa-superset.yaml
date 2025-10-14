@@ -154,11 +154,6 @@ superset:
   # WARNING: the order is not guaranteed
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
-      custom_redis_config: |
-        RECAPTCHA_PUBLIC_KEY = "" 
-        CACHE_REDIS_SSL = True
-        CACHE_REDIS_SSL_CERT_REQS = ssl.CERT_NONE
-
       enable_oauth: |
         import ssl
         import sys
