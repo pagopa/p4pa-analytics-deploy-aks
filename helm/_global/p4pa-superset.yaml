@@ -251,11 +251,11 @@ superset:
     podSecurityContext:
       seccompProfile:
         type: RuntimeDefault
-    containerSecurityContext: {} # cannot limit user privileges due to bootstrap needs (see comment at row 2)
-      # allowPrivilegeEscalation: false
-      # runAsNonRoot: true
-      # runAsUser: 65534
-      # runAsGroup: 65534
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
 
     strategy: {}
       # type: RollingUpdate
@@ -305,11 +305,11 @@ superset:
     podSecurityContext:
       seccompProfile:
         type: RuntimeDefault
-    containerSecurityContext: {} # cannot limit user privileges due to bootstrap needs (see comment at row 2)
-    # allowPrivilegeEscalation: false
-    # runAsNonRoot: true
-    # runAsUser: 65534
-    # runAsGroup: 65534
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
     strategy: {}
       # type: RollingUpdate
       # rollingUpdate:
@@ -356,11 +356,11 @@ superset:
     podSecurityContext:
       seccompProfile:
         type: RuntimeDefault
-    containerSecurityContext: {} # cannot limit user privileges due to bootstrap needs (see comment at row 2)
-    # allowPrivilegeEscalation: false
-    # runAsNonRoot: true
-    # runAsUser: 65534
-    # runAsGroup: 65534
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
 
   supersetCeleryFlower:
     # -- Enables a Celery flower deployment (management UI to monitor celery jobs)
@@ -401,11 +401,11 @@ superset:
     podSecurityContext:
       seccompProfile:
         type: RuntimeDefault
-    containerSecurityContext: {} # cannot limit user privileges due to bootstrap needs (see comment at row 2)
-    # allowPrivilegeEscalation: false
-    # runAsNonRoot: true
-    # runAsUser: 65534
-    # runAsGroup: 65534
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
 
   supersetWebsockets:
     # -- This is only required if you intend to use `GLOBAL_ASYNC_QUERIES` in `ws` mode
@@ -461,11 +461,11 @@ superset:
     podSecurityContext:
       seccompProfile:
         type: RuntimeDefault
-    containerSecurityContext: {} # cannot limit user privileges due to bootstrap needs (see comment at row 2)
-    # allowPrivilegeEscalation: false
-    # runAsNonRoot: true
-    # runAsUser: 65534
-    # runAsGroup: 65534
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
 
   init:
     # Configure resources
@@ -541,11 +541,11 @@ superset:
     podSecurityContext:
       seccompProfile:
         type: RuntimeDefault
-    containerSecurityContext: {} # cannot limit user privileges due to bootstrap needs (see comment at row 2)
-    # allowPrivilegeEscalation: false
-    # runAsNonRoot: true
-    # runAsUser: 65534
-    # runAsGroup: 65534
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      runAsUser: 65534
+      runAsGroup: 65534
     ## Tolerations to be added to init job pods
     tolerations: []
     ## Affinity to be added to init job pods
