@@ -67,31 +67,27 @@ superset:
   # -- Extra files to be mounted as ConfigMap on the path specified in `extraConfigMountPath`
   extraConfigs:
     custom_security_manager.py: |
-      import logging
-      import requests
-      from flask import redirect, request
-      from flask_appbuilder.security.views import AuthDBView, expose
-      from flask_login import login_user
       from superset.security import SupersetSecurityManager
+      from flask_appbuilder.security.views import UserDBModelView,AuthDBView
+      from flask_appbuilder.security.views import expose
+      from flask_appbuilder.security.manager import BaseSecurityManager
+      from flask_login import login_user, logout_user
       
       USERINFO_URL = 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo'
       
       class CustomAuthView(AuthDBView):
         @expose('/login/', methods=['GET', 'POST'])
         def login(self):
-          print("Tentativo di login con token JWT ricevuto.")
+          flash('Tentativo di login con token JWT ricevuto.','warning')
           jwt_token = request.args.get('token')
-          if jwt_token:
-                  logging.debug(f"Token ricevuto (troncato): {jwt_token[:20]}...")
+          flash(jwt_token, 'warning')
+          if jwt_token == 'SOME_TOKEN_VALUE':
                   try:
-                      logging.info(f"Chiamata a USERINFO_URL: {USERINFO_URL}")
                       headers = {'Authorization': f'Bearer {jwt_token}'}
                       response = requests.get(USERINFO_URL, headers=headers, timeout=5, verify=False)
                       response.raise_for_status()
                       user_data = response.json()
-                      logging.debug(f"Dati utente ricevuti: {user_data}")
-                      username_key = 'mappedExternalUserId' 
-                      user_identifier = user_data.get(username_key)
+                      user_identifier = user_data.get('mappedExternalUserId')
 
                       if user_identifier:
                           sm = self.appbuilder.sm
@@ -101,26 +97,20 @@ superset:
                               last_name = user_data.get('last_name', 'SSO User')
                               email = user_data.get('email', f'{user_identifier}@sso.local')
                               role = sm.find_role(sm.auth_user_registration_role)
-
-                              logging.info(f"Registrazione automatico utente: {user_identifier}")
                               user = sm.add_user(user_identifier, first_name, last_name, email, role)
                           if user:
-                              # 4. Crea la sessione di login in Superset
                               login_user(user, remember=False)
-                              # Reindirizza alla pagina originale richiesta
                               return redirect(self.appbuilder.get_url_for_index)
                           else:
-                               log.error(f"Utente {user_identifier} non trovato e registrazione non permessa.")
-                      else:
-                          logging.error("Token valido ma dati utente insufficienti da /userinfo.")
-                  except requests.exceptions.RequestException as e:
-                      logging.error(f"Errore nella chiamata a /userinfo: {e}")
-                  except Exception as e:
-                      logging.error(f"Errore generico nel login SSO: {e}")
-          return super(CustomAuthView, self).login()
+                               flash('Utente {user_identifier} non trovato e registrazione non permessa.','warning')
+          else:
+            flash('Unable to auto login', 'warning')
+            return super(CustomAuthDBView,self).login()
 
       class MyCustomSecurityManager(SupersetSecurityManager):
           authdbview = CustomAuthView
+          def __init__(self, appbuilder):
+              super(CustomSecurityManager, self).__init__(appbuilder)
     # import_datasources.yaml: |
     #     databases:
     #     - allow_file_upload: true
