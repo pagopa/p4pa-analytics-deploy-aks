@@ -64,7 +64,26 @@ superset:
 
 
   # -- Extra files to be mounted as ConfigMap on the path specified in `extraConfigMountPath`
-  extraConfigs: {}
+  extraConfigs:
+    custom_security_manager.py: |
+      from superset.security import SupersetSecurityManager
+      import logging
+      from flask_appbuilder.security.manager import AUTH_OAUTH 
+      
+      class CustomSsoSecurityManager(SupersetSecurityManager):
+              def oauth_user_info(self, provider, response=None):
+                  logging.debug("Oauth2 provider: {0}.".format(provider))
+      
+                  if provider == 'p4paauth':
+                      me = self.appbuilder.sm.oauth_remotes[provider].get('oauth/userinfo').data
+                      logging.debug("user_data: {0}".format(me))
+                      return {
+                          # Le chiavi qui sotto sono quelle usate internamente da Superset
+                          'id': me['externalUserId'],
+                          'username': me['externalUserId'],
+                          'first_name': me.get('name', 'User'),
+                          'last_name': me.get('surname', 'SSO'),
+                      }
     # import_datasources.yaml: |
     #     databases:
     #     - allow_file_upload: true
@@ -98,9 +117,11 @@ superset:
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
       enable_oauth: |
-        from flask_appbuilder.security.manager import AUTH_OAUTH
+        import sys
         import os 
-        import logging
+        sys.path.append("/app/configs") 
+        from custom_security_manager import CustomSsoSecurityManager
+        CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
         
         ENABLE_PROXY_FIX = True
         APPLICATION_ROOT = '/analytics' 
@@ -126,19 +147,6 @@ superset:
                   },
               }
           }]
-        
-        class CustomSsoSecurityManager:
-                def oauth_user_info(self, provider, response=None):
-                    logging.debug("Oauth2 provider: {0}.".format(provider))
-                    if provider == 'p4paauth':
-                        me = self.appbuilder.sm.oauth_remotes[provider].get('userDetails').data
-                        logging.debug("user_data: {0}".format(me))
-                        return {
-                            'id': me['externalUserId'],
-                            'username': me['externalUserId'],
-                        }
-
-        CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
