@@ -72,17 +72,16 @@ superset:
       from flask_appbuilder.security.manager import AUTH_OAUTH 
       
       class CustomSsoSecurityManager(SupersetSecurityManager):
-          oauth_state = False  
+          logging.info("Oauth2 provider")
           def oauth_user_info(self, provider, response=None):
-              logging.debug("Oauth2 provider: {0}.".format(provider))
-  
+              logging.info("Oauth2 provider: {0}.".format(provider))
               if provider == 'p4paauth':
                   me = self.appbuilder.sm.oauth_remotes[provider].get('oauth/userinfo').data
-                  logging.debug("user_data: {0}".format(me))
+                  logging.info("user_data: {0}".format(me))
                   return {
                       # Le chiavi qui sotto sono quelle usate internamente da Superset
-                      'id': me['externalUserId'],
-                      'username': me['externalUserId'],
+                      'id': me['mappedExternalUserId'],
+                      'username': me['mappedExternalUserId'],
                       'first_name': me.get('name', 'User'),
                       'last_name': me.get('surname', 'SSO'),
                   }
@@ -122,7 +121,6 @@ superset:
         import sys
         import os 
         from flask_appbuilder.security.manager import (AUTH_OAUTH,AUTH_DB) 
-        APPLICATION_ROOT = '/analytics' 
         AUTH_TYPE = AUTH_OAUTH
         
         sys.path.append("/app/configs") 
@@ -131,11 +129,10 @@ superset:
         
         AUTH_ROLE_ADMIN = 'Admin'
         AUTH_USER_REGISTRATION = True
-        AUTH_USER_REGISTRATION_ROLE = "Gamma"
-        AUTH_ROLES_SYNC_AT_LOGIN = True
+        AUTH_USER_REGISTRATION_ROLE = 'Gamma'
         OAUTH_USER_INFO_KEY = 'userinfo'
-        OAUTH_USERNAME_FIELD = 'externalUserId'
-        ENABLE_PROXY_FIX = True
+        OAUTH_USERNAME_FIELD = 'mappedExternalUserId'
+
         OAUTH_PROVIDERS = [{
               'name': 'p4paauth',
               'icon': 'fa-key',
@@ -143,8 +140,9 @@ superset:
               'remote_app': {
                   'client_id': 'piattaforma-unitaria',
                   'client_secret': os.environ.get('PIATTAFORMA_UNITARIA_CLIENT_SECRET'),
-                  'api_base_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth',
+                  'api_base_url': 'https://api.dev.p4pa.pagopa.it/pu/auth',
                   'access_token_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/token',
+                  'authorize_url': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo',
                   'userinfo_endpoint': 'https://api.dev.p4pa.pagopa.it/pu/auth/oauth/userinfo',
                   'jwks_uri':'https://api.dev.p4pa.pagopa.it/pu/.well-known/jwks.json',
                   'client_kwargs': {
