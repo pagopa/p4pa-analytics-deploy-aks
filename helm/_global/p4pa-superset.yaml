@@ -147,6 +147,8 @@ superset:
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
       enable_oauth: |
+        import sys
+        sys.path.append('/app/configs')
         from custom_security_manager import CustomSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
     # extend_timeout: |
