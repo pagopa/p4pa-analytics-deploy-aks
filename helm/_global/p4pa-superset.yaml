@@ -101,6 +101,7 @@ superset:
                           logger.debug('if user_identifier')
                           sm = self.appbuilder.sm
                           user = sm.find_user(username=user_identifier)
+                          logger.debug('Find success')
                           if not user and sm.auth_user_registration:
                               logger.debug('Utente non trovato registrazione.')
                               first_name = 'sso_name'
@@ -165,6 +166,8 @@ superset:
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
         AUTH_TYPE = AUTH_DB
         LOG_LEVEL = 'DEBUG'
+        AUTH_USER_REGISTRATION = True
+        AUTH_USER_REGISTRATION_ROLE = "Public"
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
