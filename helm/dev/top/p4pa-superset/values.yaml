@@ -46,6 +46,8 @@ superset:
       # requests:
       #  cpu: 100m
     #  memory: 128Mi
+    env:
+      AUTH_BASE_URL: "https://api.dev.p4pa.pagopa.it/pu/auth"
 
   # Superset Celery worker configuration
   supersetWorker:
