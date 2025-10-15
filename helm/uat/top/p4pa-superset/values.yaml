@@ -3,9 +3,10 @@ superset:
     tag: uat-latest
 
   ingress:
-    hosts:
-      - "hub.internal.uat.p4pa.pagopa.it"
-    tls: []
+    tls:
+      - secret_name: analytics-internal-uat-p4pa-pagopa-it
+        hosts:
+          - analytics.internal.uat.p4pa.pagopa.it
 
   resources:
     # The limits below will apply to all Superset components. To set individual resource limitations refer to the pod specific values below.

@@ -31,7 +31,6 @@ superset:
 
   # -- Extra environment variables that will be passed into pods
   extraEnv:
-    SUPERSET_APP_ROOT: "/analytics" # if you change this, apply the same on probe configurations
     # Different gunicorn settings, refer to the gunicorn documentation
     # https://docs.gunicorn.org/en/stable/settings.html#
     # These variables are used as Flags at the gunicorn startup
@@ -144,14 +143,11 @@ superset:
     enabled: true
     ingressClassName: nginx
     annotations:
-      # kubernetes.io/tls-acme: "true"
-      nginx.ingress.kubernetes.io/rewrite-target: /analytics$1
-      nginx.ingress.kubernetes.io/use-regex: 'true'
+      nginx.ingress.kubernetes.io/force-ssl-redirect : true
       ## Extend timeout to allow long running queries.
       nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
       nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
       nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
-    path: /analytics(/?.*)
     pathType: ImplementationSpecific
     extraHostsRaw: []
     #  - secretName: chart-example-tls
@@ -221,33 +217,6 @@ superset:
     podAnnotations: {}
     # -- Labels to be added to supersetNode pods
     podLabels: {}
-    startupProbe:
-      httpGet:
-        path: /analytics/health
-        port: http
-      initialDelaySeconds: 15
-      timeoutSeconds: 1
-      failureThreshold: 60
-      periodSeconds: 5
-      successThreshold: 1
-    livenessProbe:
-      httpGet:
-        path: /analytics/health
-        port: http
-      initialDelaySeconds: 15
-      timeoutSeconds: 1
-      failureThreshold: 3
-      periodSeconds: 15
-      successThreshold: 1
-    readinessProbe:
-      httpGet:
-        path: /analytics/health
-        port: http
-      initialDelaySeconds: 15
-      timeoutSeconds: 1
-      failureThreshold: 3
-      periodSeconds: 15
-      successThreshold: 1
     podSecurityContext:
       seccompProfile:
         type: RuntimeDefault
