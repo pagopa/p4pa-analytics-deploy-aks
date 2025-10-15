@@ -79,8 +79,6 @@ superset:
         @expose('/analytics/login/', methods=['GET', 'POST'])
         def login(self):
           logger.debug('Tentativo di login con token JWT ricevuto.')
-          print('qualcosa')
-          debug('qualcosa debug')
           jwt_token = request.args.get('token')
           logger.debug(jwt_token)
           if jwt_token:
