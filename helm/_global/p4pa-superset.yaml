@@ -161,7 +161,6 @@ superset:
         from custom_security_manager import CustomSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
         AUTH_TYPE = AUTH_DB
-
         LOG_LEVEL = 'DEBUG'
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
