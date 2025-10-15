@@ -99,6 +99,7 @@ superset:
   configOverrides:
       enable_oauth: |
         LOG_LEVEL = 'DEBUG'
+        APPLICATION_ROOT = '/analytics/'
         
         import logging
         from flask import redirect, flash, request
