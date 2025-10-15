@@ -3,6 +3,8 @@ superset:
     tag: uat-latest
 
   ingress:
+    hosts:
+      - analytics.internal.uat.p4pa.pagopa.it
     tls:
       - secret_name: analytics-internal-uat-p4pa-pagopa-it
         hosts:
