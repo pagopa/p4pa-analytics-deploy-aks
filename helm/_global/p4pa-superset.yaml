@@ -89,7 +89,7 @@ superset:
           logger.debug('Username')
           logger.debug(username)
           if not jwt_token:
-            return super(CustomAuthDBView,self).login()
+            return super(CustomAuthView,self).login()
           if jwt_token:
                   try:
                       headers = {'Authorization': f'Bearer {jwt_token}'}
