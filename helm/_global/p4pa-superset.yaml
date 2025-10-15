@@ -103,7 +103,7 @@ superset:
                           if not user and sm.auth_user_registration:
                               logger.debug('Utente non trovato registrazione.')
                               first_name = 'sso_name'
-                              last_name = sso_last_name'
+                              last_name = 'sso_last_name'
                               email = 'email'
                               role = sm.find_role(sm.auth_user_registration_role)
                               user = sm.add_user(user_identifier, first_name, last_name, email, role)
