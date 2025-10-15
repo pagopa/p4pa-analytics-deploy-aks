@@ -95,7 +95,7 @@ superset:
                       response.raise_for_status()
                       user_data = response.json()
                       logger.debug(user_data) 
-                      user_identifier = user_data.get('userId')
+                      user_identifier = user_data.get('mappedExternalUserId')
                       logger.debug(user_identifier)
                       if user_identifier:
                           logger.debug('if user_identifier')
@@ -104,9 +104,9 @@ superset:
                           logger.debug('Find success')
                           if not user and sm.auth_user_registration:
                               logger.debug('Utente non trovato registrazione.')
-                              first_name = 'sso_name'
-                              last_name = 'sso_last_name'
-                              email = 'email'
+                              first_name = user_data.get('name')
+                              last_name =  user_data.get('familyName')
+                              email = ''
                               role = sm.find_role(sm.auth_user_registration_role)
                               user = sm.add_user(user_identifier, first_name, last_name, email, role)
                           if user:
@@ -167,7 +167,7 @@ superset:
         AUTH_TYPE = AUTH_DB
         LOG_LEVEL = 'DEBUG'
         AUTH_USER_REGISTRATION = True
-        AUTH_USER_REGISTRATION_ROLE = "Public"
+        AUTH_USER_REGISTRATION_ROLE = 'Gamma'
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
