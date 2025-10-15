@@ -13,7 +13,6 @@ superset:
 
   # -- Specify rather or not helm should create the secret described in `secret-env.yaml` template
   secretEnv:
-    PIATTAFORMA_UNITARIA_CLIENT_SECRET: piattaforma-unitaria-client-secret
     # -- Change to false in order to support externally created secret (Binami "Sealed Secrets" for Kubernetes or External Secrets Operator)
     # note: when externally creating the secret, the chart still expects to pull values from a secret with the name of the release defaults to `release-name-superset-env` - full logic located in _helpers.tpl file: `define "superset.fullname"`
     create: false
@@ -84,8 +83,8 @@ superset:
         def login(self):
           log.info('Tentativo di login con token JWT ricevuto.')
           jwt_token = request.args.get('token')
-          flash(jwt_token, 'warning')
-          if jwt_token == 'SOME_TOKEN_VALUE':
+          log.info(jwt_token)
+          if jwt_token:
                   try:
                       headers = {'Authorization': f'Bearer {jwt_token}'}
                       response = requests.get(USERINFO_URL, headers=headers, timeout=5, verify=False)
@@ -157,6 +156,7 @@ superset:
         from custom_security_manager import CustomSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
         AUTH_TYPE = AUTH_DB
+        LOG_LEVEL = 'DEBUG'
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
