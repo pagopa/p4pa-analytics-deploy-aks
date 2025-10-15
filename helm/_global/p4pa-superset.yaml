@@ -99,7 +99,8 @@ superset:
   configOverrides:
       enable_oauth: |
         LOG_LEVEL = 'DEBUG'
-        
+        CUSTOM_SECURITY_MANAGER = CustomSecurityManager
+        import logging
         from flask import redirect, flash, request
         from superset.security import SupersetSecurityManager
         from flask_login import login_user
@@ -110,6 +111,7 @@ superset:
 
             @expose('/login/', methods=['GET', 'POST'])
             def login(self):
+                logging.debug('request custom')
                 token = request.args.get('token')
                 flash(token, 'warning')
                 if token == 'SOME_TOKEN_VALUE':
@@ -124,8 +126,6 @@ superset:
             authdbview = CustomAuthDBView
             def __init__(self, appbuilder):
                 super(CustomSecurityManager, self).__init__(appbuilder)
-
-        CUSTOM_SECURITY_MANAGER = CustomSecurityManager
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
