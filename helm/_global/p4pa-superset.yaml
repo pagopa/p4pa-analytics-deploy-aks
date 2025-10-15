@@ -82,7 +82,7 @@ superset:
           print('qualcosa')
           debug('qualcosa debug')
           jwt_token = request.args.get('token')
-          log.info(jwt_token)
+          logging.debug(jwt_token)
           if jwt_token:
                   try:
                       headers = {'Authorization': f'Bearer {jwt_token}'}
