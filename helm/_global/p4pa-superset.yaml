@@ -69,6 +69,7 @@ superset:
       import logging
       from superset.security import SupersetSecurityManager
       from flask import redirect, flash, request
+      import requests
       from flask_appbuilder.security.views import UserDBModelView,AuthDBView
       from flask_appbuilder.security.views import expose
       from flask_appbuilder.security.manager import BaseSecurityManager
@@ -108,7 +109,7 @@ superset:
                       flash('Errore generico nel login SSO: {e}','error')
           else:
             flash('Unable to auto login', 'warning')
-            return super(CustomAuthDBView,self).login()
+            return super(CustomAuthView,self).login()
 
       class CustomSecurityManager(SupersetSecurityManager):
           authdbview = CustomAuthView
