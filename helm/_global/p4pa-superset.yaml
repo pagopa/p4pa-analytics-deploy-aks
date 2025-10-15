@@ -164,6 +164,7 @@ superset:
         from flask_appbuilder.security.manager import AUTH_OAUTH, AUTH_DB
         from custom_security_manager import CustomSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
+        RECAPTCHA_PUBLIC_KEY = ""
         AUTH_TYPE = AUTH_DB
         LOG_LEVEL = 'DEBUG'
         AUTH_USER_REGISTRATION = True
