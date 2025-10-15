@@ -82,7 +82,9 @@ superset:
         def login(self):
           logger.debug('Tentativo di login con token JWT ricevuto.')
           jwt_token = request.args.get('token')
-          logger.debug(jwt_token)
+          username = request.args.get('username')
+          logger.debug('Token ' + jwt_token)
+          logger.debug('Username ' + username)
           if jwt_token:
                   try:
                       headers = {'Authorization': f'Bearer {jwt_token}'}
@@ -155,9 +157,8 @@ superset:
         from custom_security_manager import CustomSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
         AUTH_TYPE = AUTH_DB
-        ENABLE_PROXY_FIX = True
+
         LOG_LEVEL = 'DEBUG'
-        APPLICATION_ROOT = '/analytics/'
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
