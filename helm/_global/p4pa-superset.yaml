@@ -111,7 +111,8 @@ superset:
 
             @expose('/login/', methods=['GET', 'POST'])
             def login(self):
-                logging.debug('request custom')
+                logger = logging.getLogger('stats_logger')
+                logger.debug('request custom')
                 token = request.args.get('token')
                 flash(token, 'warning')
                 if token == 'SOME_TOKEN_VALUE':
