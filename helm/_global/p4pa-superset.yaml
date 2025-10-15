@@ -95,9 +95,10 @@ superset:
                       response.raise_for_status()
                       user_data = response.json()
                       logger.debug(user_data) 
-                      user_identifier = user_data.get('mappedExternalUserId')
+                      user_identifier = user_data.get('userId')
                       logger.debug(user_identifier)
                       if user_identifier:
+                          logger.debug('if user_identifier')
                           sm = self.appbuilder.sm
                           user = sm.find_user(username=user_identifier)
                           if not user and sm.auth_user_registration:
