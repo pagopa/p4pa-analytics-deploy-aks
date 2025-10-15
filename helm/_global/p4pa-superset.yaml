@@ -143,7 +143,7 @@ superset:
     enabled: true
     ingressClassName: nginx
     annotations:
-      nginx.ingress.kubernetes.io/force-ssl-redirect : true
+      nginx.ingress.kubernetes.io/force-ssl-redirect : "true"
       ## Extend timeout to allow long running queries.
       nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
       nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
