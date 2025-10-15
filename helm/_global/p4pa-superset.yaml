@@ -96,25 +96,19 @@ superset:
                       user_data = response.json()
                       logger.debug(user_data) 
                       user_identifier = user_data.get('mappedExternalUserId')
-
+                      logger.debug(user_identifier)
                       if user_identifier:
                           sm = self.appbuilder.sm
                           user = sm.find_user(username=user_identifier)
-                          if not user and sm.auth_user_registration:
-                              first_name = user_data.get('first_name', user_identifier)
-                              last_name = user_data.get('last_name', 'SSO User')
-                              email = user_data.get('email', f'{user_identifier}@sso.local')
-                              role = sm.find_role(sm.auth_user_registration_role)
-                              user = sm.add_user(user_identifier, first_name, last_name, email, role)
                           if user:
                               login_user(user, remember=False)
                               return redirect(self.appbuilder.get_url_for_index)
                           else:
-                               flash('Utente {user_identifier} non trovato e registrazione non permessa.','warning')
+                               logger.debug('Utente non trovato e registrazione non permessa.')
                   except Exception as e:
-                      flash('Errore generico nel login SSO: {e}','error')
+                      logger.debug('Errore generico nel login SSO: %s',e)
           else:
-            flash('Unable to auto login', 'warning')
+            logger.debug('Unable to auto login')
             return super(CustomAuthView,self).login()
 
       class CustomSecurityManager(SupersetSecurityManager):
