@@ -96,6 +96,18 @@ superset:
   # WARNING: the order is not guaranteed
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
+      enable_sso: |
+        import sys
+        sys.path.append('/app/configs')
+        from superset.security import SupersetSecurityManager
+        from flask_appbuilder.security.manager import AUTH_OAUTH, AUTH_DB
+        from custom_security_manager import CustomSecurityManager
+        CUSTOM_SECURITY_MANAGER = CustomSecurityManager
+        RECAPTCHA_PUBLIC_KEY = ""
+        AUTH_TYPE = AUTH_DB
+        LOG_LEVEL = 'DEBUG'
+        AUTH_USER_REGISTRATION = True
+        AUTH_USER_REGISTRATION_ROLE = 'Gamma'
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
