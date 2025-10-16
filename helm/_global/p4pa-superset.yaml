@@ -98,7 +98,7 @@ superset:
   configOverrides:
       enable_oauth: |
         import sys
-        sys.path.append('/app/src/configs')
+        sys.path.append('/app/configs')
         from superset.security import SupersetSecurityManager
         from flask_appbuilder.security.manager import AUTH_OAUTH, AUTH_DB
         from custom_security_manager import CustomSecurityManager
