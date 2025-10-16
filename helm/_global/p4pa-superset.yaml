@@ -96,7 +96,7 @@ superset:
   # WARNING: the order is not guaranteed
   # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
   configOverrides:
-      enable_oauth: |
+      enable_sso: |
         import sys
         sys.path.append('/app/configs')
         from superset.security import SupersetSecurityManager
