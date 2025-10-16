@@ -63,7 +63,7 @@ superset:
 
 
   # -- Extra files to be mounted as ConfigMap on the path specified in `extraConfigMountPath`
-  extraConfigs:
+  extraConfigs: {}
     # import_datasources.yaml: |
     #     databases:
     #     - allow_file_upload: true
