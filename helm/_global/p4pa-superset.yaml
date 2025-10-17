@@ -31,7 +31,7 @@ superset:
 
   # -- Extra environment variables that will be passed into pods
   extraEnv:
-    AUTH_BASE_URL: "https://api.dev.p4pa.pagopa.it/pu/auth"
+    AUTH_BASE_URL: "p4pa-auth-microservice-chart.payhub.svc.cluster.local:8080"
     # Different gunicorn settings, refer to the gunicorn documentation
     # https://docs.gunicorn.org/en/stable/settings.html#
     # These variables are used as Flags at the gunicorn startup
