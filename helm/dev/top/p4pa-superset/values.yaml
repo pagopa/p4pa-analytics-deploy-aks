@@ -19,8 +19,6 @@ superset:
     requests:
       cpu: 100m
       memory: 128Mi
-  extraEnv:
-    AUTH_BASE_URL: "https://api.dev.p4pa.pagopa.it/pu/auth"
 
   # Superset node configuration
   supersetNode:
