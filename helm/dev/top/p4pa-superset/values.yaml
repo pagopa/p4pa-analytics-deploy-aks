@@ -6,7 +6,7 @@ superset:
     hosts:
       - analytics.internal.dev.p4pa.pagopa.it
     tls:
-      - secret_name: analytics-internal-dev-p4pa-pagopa-it
+      - secretName: analytics-internal-dev-p4pa-pagopa-it
         hosts:
         - analytics.internal.dev.p4pa.pagopa.it
 
