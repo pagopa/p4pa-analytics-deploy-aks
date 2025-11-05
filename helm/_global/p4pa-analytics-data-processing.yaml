@@ -4,6 +4,7 @@ microservice-chart:
   fullnameOverride: ""
 
   startupProbe:
+    create: true
     httpGet:
       path: /actuator/health/liveness
       port: 8080
