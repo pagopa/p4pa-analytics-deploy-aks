@@ -35,7 +35,9 @@ parameters:
 - name: APPS_MID
   displayName: Mid ArgoCD Apps. Set to [] to skip deployment.
   type: object
-  default: []
+  default:
+    - p4pa-analytics-data-ingestion
+    - p4pa-analytics-data-processing
 
 - name: APPS_EXT
   displayName: Extra ArgoCD Apps. Set to [] to skip deployment.

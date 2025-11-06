@@ -1,0 +1,98 @@
+microservice-chart:
+  namespace: "analytics"
+  nameOverride: ""
+  fullnameOverride: ""
+
+  startupProbe:
+    create: true
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8080
+    initialDelaySeconds: 30
+    failureThreshold: 15
+    periodSeconds: 10
+
+  livenessProbe:
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8080
+    failureThreshold: 15
+    periodSeconds: 10
+
+  readinessProbe:
+    httpGet:
+      path: /actuator/health/readiness
+      port: 8080
+    initialDelaySeconds: 5
+    failureThreshold: 15
+    periodSeconds: 10
+
+  deployment:
+    create: true
+
+  service:
+    create: true
+    type: ClusterIP
+    port: 8080
+
+  ingress:
+    create: true
+    path: /p4paanalyticsdataingestion/(.*)
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    name: ""
+
+  podAnnotations: {}
+
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsNonRoot: true
+    runAsUser: 65534
+    runAsGroup: 65534
+
+  externalConfigMapFiles:
+    create: true
+    configMaps:
+      - name: appinsights-config
+        key: applicationinsights.json
+
+  externalConfigMapValues:
+    eventhub-config:
+      KAFKA_CONFIG_SECURITY_PROTOCOL: p4pa-payhub-security-protocol
+      KAFKA_CONFIG_SASL_MECHANISM: p4pa-payhub-sasl-mechanism
+      KAFKA_TOPIC_PAYMENTS: p4pa-payhub-payments-topic
+      KAFKA_TOPIC_DATA_EVENTS: p4pa-payhub-data-events-topic
+
+  envConfig:
+    APPLICATIONINSIGHTS_ROLE_NAME: "p4pa-analytics-data-ingestion"
+    APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL: "OFF"
+    APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED: "false"
+    APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
+    ENABLE_AUDIT_APPENDER: "TRUE"
+
+  envSecret:
+    APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-connection-string
+    JWT_TOKEN_PUBLIC_KEY: jwt-public-key
+
+    AUTH_CLIENT_SECRET: piattaforma-unitaria-client-secret
+
+    ANALYtICS_DB_HOST: db-host
+    ANALYtICS_DB_USER: db-analytics-login-username
+    ANALYtICS_DB_PASSWORD: db-analytics-login-password
+
+    KAFKA_BINDER_BROKER: p4pa-payhub-kafka-broker
+    KAFKA_PAYMENTS_CONSUMER_SASL_JAAS_CONFIG: p4pa-payhub-payments-evh-consumer-jaas-config
+    KAFKA_DATA_EVENTS_CONSUMER_SASL_JAAS_CONFIG: p4pa-payhub-data-events-evh-consumer-jaas-config
+    KAFKA_AUDIT_CONSUMER_SASL_JAAS_CONFIG: p4pa-payhub-audit-evh-consumer-jaas-config
+
+  # nodeSelector: {}
+
+  # tolerations: []
+
+  # affinity: {}
