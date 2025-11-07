@@ -76,7 +76,7 @@ microservice-chart:
     APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
     ENABLE_AUDIT_APPENDER: "TRUE"
 
-    AUTH_BASE_URL: "http://p4pa-auth-microservice-chart.payhub.svc.cluster.local:8080"
+    AUTH_BASE_URL: "http://p4pa-auth-microservice-chart.payhub.svc.cluster.local:8080/payhub"
     DEBT_POSITIONS_BASE_URL: "http://p4pa-debt-positions-microservice-chart.payhub.svc.cluster.local:8080"
 
   envSecret:
