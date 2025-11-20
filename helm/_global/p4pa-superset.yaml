@@ -32,7 +32,7 @@ superset:
   # -- Extra environment variables that will be passed into pods
   extraEnv:
     AUTH_BASE_URL: "http://p4pa-auth-microservice-chart.payhub.svc.cluster.local:8080/payhub"
-    DEBT_POSITIONS_BASE_URL: "http://p4pa-debt-positions-microservice-chart.payhub.svc.cluster.local:8080/payhub"
+    DEBT_POSITIONS_BASE_URL: "http://p4pa-debt-positions-microservice-chart.payhub.svc.cluster.local:8080"
     # https://docs.gunicorn.org/en/stable/settings.html#
     # These variables are used as Flags at the gunicorn startup
     # https://github.com/apache/superset/blob/master/docker/run-server.sh#L22
