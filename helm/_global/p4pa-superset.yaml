@@ -122,8 +122,8 @@ superset:
         }
 
       custom_logo: |
-        APP_ICON="app/static/assets/images/logo.png"
-        SUPERSET_LOGO_TARGET_PATH="app/static/assets/images/logo.png"
+        APP_ICON="/app/static/assets/images/logo.png"
+        SUPERSET_LOGO_TARGET_PATH="/app/static/assets/images/logo.png"
 
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
