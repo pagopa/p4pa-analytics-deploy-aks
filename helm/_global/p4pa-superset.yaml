@@ -112,6 +112,14 @@ superset:
         LOG_LEVEL = 'DEBUG'
         AUTH_USER_REGISTRATION = True
         AUTH_USER_REGISTRATION_ROLE = 'Gamma'
+
+      add_locale: |
+        BABEL_DEFAULT_LOCALE = "it"
+        LANGUAGES = {
+            "en": {"flag": "us", "name": "English"},
+            "it": {"flag": "it", "name": "Italian"},
+            "de": {"flag": "de", "name": "German"},
+        }
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
