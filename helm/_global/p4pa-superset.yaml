@@ -35,10 +35,6 @@ superset:
     DEBT_POSITIONS_BASE_URL: "http://p4pa-debt-positions-microservice-chart.payhub.svc.cluster.local:8080"
     ANALYTICS_DB_NAME: "analytics"
     ANALYTICS_DB_SCHEMA_NAME: "dmt"
-    OPERATOR_DATASOURCE_ACCESS_PERMISSION_LIST: "v_assessment_classified"
-    ORGANIZATION_ADMIN_DATASOURCE_ACCESS_PERMISSION_LIST: ""
-    BROKER_ADMIN_DATASOURCE_ACCESS_PERMISSION_LIST: ""
-    DEFAULT_DATASOURCE_ACCESS_PERMISSION_LIST: ""
     # Different gunicorn settings, refer to the gunicorn documentation
     # https://docs.gunicorn.org/en/stable/settings.html#
     # These variables are used as Flags at the gunicorn startup
