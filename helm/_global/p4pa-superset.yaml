@@ -125,7 +125,7 @@ superset:
         APP_NAME = "Analytics"
         APP_ICON = "/static/assets/images/pagoPA.svg"
         FAVICONS = [{"href": "/static/assets/images/pagoPA.svg"}]
-        LOGO_ICON = "/static/assets/images/pagoPA.svg"
+        LOGO_RIGHT_TEXT = "/static/assets/images/pagoPA.svg"
         LOGO_TARGET_PATH = '/'
         LOGO_TOOLTIP = "Analytics"
 
