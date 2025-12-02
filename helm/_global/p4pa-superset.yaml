@@ -125,22 +125,10 @@ superset:
         APP_NAME = "Analytics"
         APP_ICON = "/static/assets/images/pagoPA.svg"
         FAVICONS = [{"href": "/static/assets/images/pagoPA.svg"}]
+        LOGO_RIGHT_TEXT = "/static/assets/images/pagoPA.svg"
         LOGO_TARGET_PATH = '/'
         LOGO_TOOLTIP = "Analytics"
-        
-        THEME_DEFAULT = {
-          "token": {
-            "brandLogoUrl": "/static/assets/images/pagoPA.svg",
-            "brandLogoAlt": "PU Analytics",
-          }
-        }
-        
-        THEME_DARK = {
-          "token": {
-            "brandLogoUrl": "/static/assets/images/pagoPA.svg",
-            "brandLogoAlt": "PU Analytics",
-          }
-        }
+      
     
 
     # extend_timeout: |
