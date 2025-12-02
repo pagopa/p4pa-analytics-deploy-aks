@@ -34,7 +34,7 @@ superset:
     AUTH_BASE_URL: "http://p4pa-auth-microservice-chart.payhub.svc.cluster.local:8080/payhub"
     DEBT_POSITIONS_BASE_URL: "http://p4pa-debt-positions-microservice-chart.payhub.svc.cluster.local:8080"
     ANALYTICS_DB_NAME: "analytics"
-    SCHEMA_AND_TABLE_NAME_LIST_STRING: "dmt|v_assessment_classified"
+    ANALYTICS_DB_SCHEMA_NAME: "dmt"
     # Different gunicorn settings, refer to the gunicorn documentation
     # https://docs.gunicorn.org/en/stable/settings.html#
     # These variables are used as Flags at the gunicorn startup
@@ -102,10 +102,10 @@ superset:
   configOverrides:
       enable_sso: |
         import sys
-        sys.path.append('/app/configs')
+        sys.path.append('/app')
         from superset.security import SupersetSecurityManager
         from flask_appbuilder.security.manager import AUTH_OAUTH, AUTH_DB
-        from custom_security_manager import CustomSecurityManager
+        from configs.custom_security_manager import CustomSecurityManager
         CUSTOM_SECURITY_MANAGER = CustomSecurityManager
         RECAPTCHA_PUBLIC_KEY = ""
         AUTH_TYPE = AUTH_DB
