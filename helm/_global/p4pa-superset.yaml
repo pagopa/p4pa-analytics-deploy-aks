@@ -127,19 +127,7 @@ superset:
         FAVICONS = [{"href": "/static/assets/images/pagoPA.svg"}]
         LOGO_TARGET_PATH = '/'
         LOGO_TOOLTIP = "Analytics"
-        THEME_DEFAULT = {
-          "token": {
-            "brandLogoUrl": "/static/assets/images/pagoPA.svg",
-            "brandLogoAlt": "PU Analytics",
-          }
-        }
-        
-        THEME_DARK = {
-          "token": {
-            "brandLogoUrl": "/static/assets/images/pagoPA.svg",
-            "brandLogoAlt": "PU Analytics",
-          }
-        }
+        LOGO_RIGHT_TEXT = "/static/assets/images/pagoPA.svg"
     
 
     # extend_timeout: |
