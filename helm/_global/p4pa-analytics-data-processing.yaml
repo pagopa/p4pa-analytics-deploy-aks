@@ -77,6 +77,10 @@ microservice-chart:
     APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-connection-string
     JWT_TOKEN_PUBLIC_KEY: jwt-public-key
 
+    ANALYTICS_DB_HOST: db-host
+    ANALYTICS_DB_USER: db-analytics-login-username
+    ANALYTICS_DB_PASSWORD: db-analytics-login-password
+
   # nodeSelector: {}
 
   # tolerations: []
