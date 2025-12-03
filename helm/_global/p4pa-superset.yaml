@@ -122,7 +122,6 @@ superset:
         }
 
       fix_i18n: |
-        BUILD_TRANSLATIONS="true"
         from superset.translations.utils import get_language_pack
         def override_bootstrap_locale(data):
           if data.get("locale") == "it":
