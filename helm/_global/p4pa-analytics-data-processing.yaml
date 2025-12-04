@@ -53,14 +53,8 @@ microservice-chart:
   securityContext:
     allowPrivilegeEscalation: false
     runAsNonRoot: true
-    runAsUser: 65534
-    runAsGroup: 65534
-
-  tmpVolumeMount:
-    create: true
-    mounts:
-      - name: dbt-logs
-        mountPath: /app/dbt/logs
+    runAsUser: 1000
+    runAsGroup: 1000
 
   externalConfigMapFiles:
     create: true
