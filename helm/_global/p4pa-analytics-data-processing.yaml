@@ -56,6 +56,12 @@ microservice-chart:
     runAsUser: 65534
     runAsGroup: 65534
 
+  tmpVolumeMount:
+    create: true
+    mounts:
+      - name: dbt-logs
+        mountPath: /app/dbt/logs
+
   externalConfigMapFiles:
     create: true
     configMaps:

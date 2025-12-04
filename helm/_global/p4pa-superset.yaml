@@ -121,16 +121,6 @@ superset:
             "de": {"flag": "de", "name": "German"},
         }
 
-      fix_i18n: |
-        from superset.translations.utils import get_language_pack
-        def override_bootstrap_locale(data):
-          if data.get("locale") == "it":
-            data["locale"] = "it_IT"
-            data["language_pack"] = get_language_pack('it_IT')
-          return data
-          
-        COMMON_BOOTSTRAP_OVERRIDES_FUNC = override_bootstrap_locale
-
       custom_logo: |
         APP_NAME = "Analytics"
         APP_ICON = "/static/assets/images/pagoPA.svg"
