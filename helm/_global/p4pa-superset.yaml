@@ -153,9 +153,9 @@ superset:
       extra_color_schemes: |
         EXTRA_CATEGORICAL_COLOR_SCHEMES = [
             {
-                "id": 'muiItalia',
+                "id": 'blueItalia',
                 "description": '',
-                "label": 'Colors of the MUI Italia',
+                "label": 'Colors of MUI Italia',
                 "isDefault": True,
                 "colors":
                  ['#001F3D', '#0052A3', '#0066CC', '#3184D6', '#C4DCF5', 'C4DCF5']
