@@ -156,7 +156,7 @@ superset:
                 "id": 'muiItalia',
                 "description": '',
                 "label": 'Colors of the MUI Italia',
-                "isDefault": False,
+                "isDefault": True,
                 "colors":
                  ['#E7ECFC', '#CED8F9', '#9DB2F4', '#0B3EE3']
             }
