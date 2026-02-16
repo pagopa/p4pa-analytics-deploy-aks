@@ -149,6 +149,17 @@ superset:
           "grouping": [3],          # - array of group sizes (e.g., [3]), cycled as needed.
           "currency": ["", "€"]     # - currency prefix/suffix strings (e.g., ["$", ""])
         }
+        
+      extra_color_schemes: |
+        EXTRA_CATEGORICAL_COLOR_SCHEMES = [
+            {
+                "id": 'muiItalia',
+                "description": '',
+                "label": 'Colors of the MUI Italia',
+                "isDefault": False,
+                "colors":
+                 ['#E7ECFC', '#CED8F9', '#9DB2F4', '#0B3EE3']
+            }
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
