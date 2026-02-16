@@ -158,7 +158,7 @@ superset:
                 "label": 'Colors of MUI Italia',
                 "isDefault": True,
                 "colors":
-                 ['#0062C3', '#3DA2FF', '#C4DCF5', '#001F3D', '#0052A3', '#0066CC', '#3184D6']
+                 ['#0062C3', '#3DA2FF', '#C4DCF5']
             }
         ]
     # extend_timeout: |
