@@ -160,6 +160,7 @@ superset:
                 "colors":
                  ['#E7ECFC', '#CED8F9', '#9DB2F4', '#0B3EE3']
             }
+        ]
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
