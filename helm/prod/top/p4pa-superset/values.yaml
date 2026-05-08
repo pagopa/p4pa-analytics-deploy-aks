@@ -1,6 +1,6 @@
 superset:
   image:
-    tag: v1.0.0
+    tag: v1.0.0@sha256:1d5498aaaac0c8806b5a6ce1df094461db7794d3a0705b2b5405887a35dda819
 
   ingress:
     hosts:
