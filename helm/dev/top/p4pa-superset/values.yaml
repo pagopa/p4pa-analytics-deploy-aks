@@ -123,4 +123,3 @@ superset:
       # -- If set, minAvailable must not be set - see https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
       maxUnavailable: 1
     resources: {}
-
