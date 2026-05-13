@@ -601,12 +601,20 @@ superset:
   nodeSelector: {}
 
   tolerations:
-    - key: dedicated
-      operator: Equal
-      value: p4pastats
-      effect: NoSchedule
+    - key: "statsOnly"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
 
-  affinity: {}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: domain
+            operator: In
+            values:
+            - pu
 
   # -- TopologySpreadConstrains to be added to all deployments
   topologySpreadConstraints: []
