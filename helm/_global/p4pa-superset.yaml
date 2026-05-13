@@ -134,7 +134,7 @@ superset:
             "brandLogoAlt": "PU Analytics",
           }
         }
-        
+
         THEME_DARK = {
           "token": {
             "brandLogoUrl": "/static/assets/images/pagoPA.svg",
@@ -149,7 +149,7 @@ superset:
           "grouping": [3],          # - array of group sizes (e.g., [3]), cycled as needed.
           "currency": ["", "€"]     # - currency prefix/suffix strings (e.g., ["$", ""])
         }
-        
+
       extra_color_schemes: |
         EXTRA_CATEGORICAL_COLOR_SCHEMES = [
             {
@@ -601,12 +601,20 @@ superset:
   nodeSelector: {}
 
   tolerations:
-    - key: dedicated
-      operator: Equal
-      value: p4pastats
-      effect: NoSchedule
+    - key: "statsOnly"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
 
-  affinity: {}
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: domain
+            operator: In
+            values:
+            - pu
 
   # -- TopologySpreadConstrains to be added to all deployments
   topologySpreadConstraints: []
