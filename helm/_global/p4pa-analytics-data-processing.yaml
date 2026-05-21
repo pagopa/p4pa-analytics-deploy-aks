@@ -84,7 +84,7 @@ microservice-chart:
     ANALYTICS_DB_USER: db-analytics-login-username
     ANALYTICS_DB_PASSWORD: db-analytics-login-password
 
-    DBT_ENV_SECRET_GIT_CREDENTIAL: p4pa-analytics-data-processing-enterprise-github-ro-TOKEN
+    DBT_ENV_SECRET_GIT_CREDENTIAL: p4pa-analytics-data-proc-enterprise-RO
 
   # nodeSelector: {}
 
