@@ -122,6 +122,9 @@ superset:
         }
 
       custom_logo: |
+        # explicitly adding default theme variables as workaround of: https://github.com/apache/superset/issues/40375
+        from superset.config import THEME_DEFAULT as _UPSTREAM_THEME_DEFAULT
+        
         APP_NAME = "Analytics"
         APP_ICON = "/static/assets/images/pagoPA.svg"
         FAVICONS = [{"href": "/static/assets/images/pagoPA.svg"}]
@@ -129,14 +132,18 @@ superset:
         LOGO_TOOLTIP = "Analytics"
         LOGO_RIGHT_TEXT = "PU Reports"
         THEME_DEFAULT = {
+          **_UPSTREAM_THEME_DEFAULT,
           "token": {
+            **_UPSTREAM_THEME_DEFAULT["token"],
             "brandLogoUrl": "/static/assets/images/pagoPA.svg",
             "brandLogoAlt": "PU Analytics",
           }
         }
 
         THEME_DARK = {
+          **_UPSTREAM_THEME_DEFAULT,
           "token": {
+            **_UPSTREAM_THEME_DEFAULT["token"],
             "brandLogoUrl": "/static/assets/images/pagoPA.svg",
             "brandLogoAlt": "PU Analytics",
           }
