@@ -168,6 +168,11 @@ superset:
                  ['#0062C3', '#3DA2FF', '#C4DCF5']
             }
         ]
+
+      feature_flags: |
+        FEATURE_FLAGS = {
+          "TAGGING_SYSTEM": True
+        }
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
