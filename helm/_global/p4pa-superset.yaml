@@ -171,8 +171,9 @@ superset:
 
       feature_flags: |
         FEATURE_FLAGS = {
-          "TAGGING_SYSTEM": True
+          TAGGING_SYSTEM: True
         }
+
     # extend_timeout: |
     #    # Extend timeout to allow long running queries.
     #    SUPERSET_WEBSERVER_TIMEOUT = ...
