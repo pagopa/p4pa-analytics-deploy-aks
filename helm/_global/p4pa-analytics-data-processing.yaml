@@ -74,6 +74,7 @@ microservice-chart:
     TEMPORAL_SERVER_PORT: "7233"
 
     DBT_GIT_USER_NAME: "p4pa-pagopa-github-bot"
+    # Uncomment the following line to use an external repository for dbt models extension
     DBT_GIT_EXTERNAL_REPO: "github.com/pagopa/p4pa-analytics-data-processing-enterprise.git"
 
   envSecret:
